@@ -46,5 +46,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Jar
+    uniqueID: 2335181917
+    locked: 0
+  - name: Candy
+    uniqueID: 3840934123
+    locked: 0
   m_RenderingLayers:
   - Default
