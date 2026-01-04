@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using System;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CandyMergeManager : MonoBehaviour
 {
@@ -10,16 +11,51 @@ public class CandyMergeManager : MonoBehaviour
     public TMP_Text scoreText;
 
     public TMP_Text addScoreText;
+
+    public TMP_Text multiplierText;
+
     private float comboMultiplier = 1f;
+    
+    [SerializeField] private float tripleMaxBonus = 1f;
+
+    [SerializeField] private Image comboFillImage;
+
+    private float comboTimeLeft = 0f;   
 private int comboCount = 0;
 private bool comboActive = false;
 private Coroutine comboCoroutine;
 
 private Coroutine addScoreCoroutine;
 
+private Coroutine multiplierCoroutine;
+
 [SerializeField] private float comboWindow = 5f;
 [SerializeField] private float comboStep = 0.1f;   // mỗi merge +0.1x
+
+[Header("Combo SFX Settings")]
+[SerializeField] private float multiplierThreshold = 1f; // Mốc để trigger SFX (ví dụ: mỗi 1x)
+[SerializeField] private float firstComboAt = 2f; // Multiplier đầu tiên để phát combo (2x)
+
+private float lastComboSFXMultiplier = 1f; // Theo dõi multiplier cuối cùng đã phát SFX
     
+
+AudioManager audioManager;
+ 
+ private void Awake(){
+     audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+
+ }
+    private void Update()
+{
+    if (!comboActive) return;
+
+    comboTimeLeft -= Time.deltaTime;
+
+    float t = comboTimeLeft / comboWindow;
+    comboFillImage.fillAmount = Mathf.Clamp01(t);
+
+    
+}
     private void OnEnable() {
         Candy.OnCandyMerged += HandleCandyMerge;
         Candy.OnTripleMaxLevelDetected += HandleTripleMaxLevel;   
@@ -40,6 +76,7 @@ private Coroutine addScoreCoroutine;
 
     score += finalScore;
     scoreText.text = score.ToString();
+    audioManager.PlaySFX(audioManager.candyMerge);
 
     ShowAddScore(finalScore);
 }
@@ -52,6 +89,11 @@ private Coroutine addScoreCoroutine;
 
     RegisterCombo();
 
+    comboMultiplier += tripleMaxBonus;
+    
+    CheckAndPlayComboSFX();
+    audioManager.PlaySFX(audioManager.candyMerge);
+
     int baseScore = Candy.maxLevel * 100;
     float specialMultiplier = mergeCount;
 
@@ -61,6 +103,7 @@ private Coroutine addScoreCoroutine;
     scoreText.text = score.ToString();
 
     ShowAddScore(finalScore);
+    ShowMultiplier();
 
     Debug.Log($"MAX MERGE x{specialMultiplier} | Combo x{comboMultiplier} | +{finalScore}");
 }
@@ -77,16 +120,24 @@ private int CalculateScore(int baseScore, float extraMultiplier = 1f)
         comboActive = true;
         comboCount = 0;
         comboMultiplier = 1f;
-
-        if (comboCoroutine != null)
-            StopCoroutine(comboCoroutine);
-
-        comboCoroutine = StartCoroutine(DelayAction(comboWindow, ResetCombo));
+        lastComboSFXMultiplier = 1f; // Reset khi bắt đầu combo mới
     }
+        comboCount++;
+        comboMultiplier += comboStep;
 
-    comboCount++;
-    comboMultiplier += comboStep;
-}
+        // Kiểm tra và phát combo SFX
+        CheckAndPlayComboSFX();
+
+        comboTimeLeft = comboWindow;
+        if (comboCoroutine != null)
+        StopCoroutine(comboCoroutine);
+
+    comboCoroutine = StartCoroutine(DelayAction(comboWindow, ResetCombo));
+
+    ShowMultiplier();
+    ShowComboBar();
+}   
+
 
 private void ResetCombo()
 {
@@ -94,6 +145,30 @@ private void ResetCombo()
     comboCount = 0;
     comboMultiplier = 1f;
     comboCoroutine = null;
+    lastComboSFXMultiplier = 1f; // Reset khi combo kết thúc
+
+    multiplierText.gameObject.SetActive(false);
+    HideComboBar();
+    
+}
+
+private void CheckAndPlayComboSFX()
+{
+    
+    if (comboMultiplier < firstComboAt) return;
+    
+    // cal combo base on multiplier and threshold
+    int currentComboLevel = Mathf.FloorToInt((comboMultiplier - firstComboAt) / multiplierThreshold) + 1;
+    int lastComboLevel = Mathf.FloorToInt((lastComboSFXMultiplier - firstComboAt) / multiplierThreshold) + 1;
+    
+    // Check combo level below 5
+    if (currentComboLevel > lastComboLevel && currentComboLevel <= 5)
+    {
+        audioManager.PlayComboSFX(currentComboLevel);
+        lastComboSFXMultiplier = comboMultiplier;
+        
+        Debug.Log($"Combo SFX {currentComboLevel} played at multiplier {comboMultiplier:F1}x");
+    }
 }
     IEnumerator DelayAction(float delay, Action action)
 {
@@ -109,7 +184,30 @@ private void ShowAddScore(int value)
         StopCoroutine(addScoreCoroutine);
 
     addScoreCoroutine = StartCoroutine(
-        DelayAction(3f, () => addScoreText.gameObject.SetActive(false))
+        DelayAction(5f, () => addScoreText.gameObject.SetActive(false))
     );
+}
+
+private void ShowMultiplier(){
+    multiplierText.text= "x" + comboMultiplier.ToString("0.0");
+    multiplierText.gameObject.SetActive(true);
+
+    if(multiplierCoroutine != null){
+        StopCoroutine(multiplierCoroutine);
+    }
+    multiplierCoroutine = StartCoroutine(
+        DelayAction(5f, () => multiplierText.gameObject.SetActive(false))
+    );
+}
+
+private void ShowComboBar()
+{
+    comboFillImage.transform.parent.gameObject.SetActive(true);
+    comboFillImage.fillAmount = 1f;
+}
+
+private void HideComboBar()
+{
+    comboFillImage.transform.parent.gameObject.SetActive(false);
 }
 }

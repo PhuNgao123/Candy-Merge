@@ -9,7 +9,10 @@ public class Dropper : MonoBehaviour
     private GameObject currentCandy = null;
     private float nextSpawnTime = 0f;
 
+    AudioManager audioManager;
+
     public void Awake(){
+         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         candyPrefabs= Resources.LoadAll<GameObject>("Prefab");
 
         if (candyPrefabs == null || candyPrefabs.Length == 0){
@@ -55,11 +58,12 @@ public class Dropper : MonoBehaviour
         }
 
     public void DropCandy(){
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)){
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.S)){
             if (currentCandy == null) return;  
             
             //Separate candy from Dropper
             currentCandy.transform.SetParent(null);
+            audioManager.PlaySFX(audioManager.candyDrop);
             
             // Turn on candy physic
             Rigidbody2D rb = currentCandy.GetComponent<Rigidbody2D>();
@@ -100,6 +104,7 @@ public class Dropper : MonoBehaviour
         newCandy.transform.SetParent(transform);  //Set candy as Dropper child
 
         currentCandy= newCandy;
+        audioManager.PlaySFX(audioManager.candySpawn);
 
         //Disable physic
         Rigidbody2D rb = newCandy.GetComponent<Rigidbody2D>();

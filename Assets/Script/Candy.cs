@@ -8,6 +8,8 @@ public class Candy : MonoBehaviour
     // int = level mới, Vector3 = vị trí merge
     public static event Action<List<Candy>,int> OnTripleMaxLevelDetected;
 
+    AudioManager audioManager;
+
     [Header("Candy info")]
     public string prefabPrefix = "Candy";
 
@@ -16,10 +18,14 @@ public class Candy : MonoBehaviour
     static public int maxLevel =0;
 
     private bool clusterConsumed = false;
+    [SerializeField] private float dropVelocityThreshold = 0.3f;
+
+    private bool canPlayDropSFX = true;
 
     void Awake(){
         GameObject[] candyPrefabs;
         candyPrefabs= Resources.LoadAll<GameObject>("Prefab");
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
 
         if (candyPrefabs == null || candyPrefabs.Length == 0){
             Debug.LogWarning("Can not load Candy prefabs!");
@@ -33,14 +39,21 @@ public class Candy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var rb = GetComponent<Rigidbody2D>();
-        if (rb != null) rb.WakeUp();
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+    if (rb == null) return;
+
+    
+    if (canPlayDropSFX && rb.linearVelocity.y < -dropVelocityThreshold)
+    {
+        audioManager.PlaySFX(audioManager.candyCollision);
+        canPlayDropSFX = false; 
+    }
         if(!other.TryGetComponent(out Candy otherCandy)) return;
         
         if (!touchingCandies.Contains(otherCandy))
         {
             touchingCandies.Add(otherCandy);
-            
+            CheckTripleMaxLevel();
             
         }
 
@@ -105,34 +118,43 @@ public class Candy : MonoBehaviour
         return myLevel == maxLevel;
     }
 
-    void CheckTripleMaxLevel()
+void CheckTripleMaxLevel()
 {
-    if (!TryGetLevel(out int myLevel)) return;
-    if (myLevel != maxLevel) return;
+    if (clusterConsumed) return;
+    if (!IsMaxLevel()) return;
 
     List<Candy> cluster = new List<Candy>();
-    cluster.Add(this);
+    Queue<Candy> queue = new Queue<Candy>();
 
-    foreach (Candy candy in touchingCandies)
+    cluster.Add(this);
+    queue.Enqueue(this);
+
+    while (queue.Count > 0)
     {
-        if (candy != null && candy.IsMaxLevel())
-            cluster.Add(candy);
+        Candy current = queue.Dequeue();
+
+        foreach (Candy neighbor in current.touchingCandies)
+        {
+            if (neighbor == null) continue;
+            if (!neighbor.IsMaxLevel()) continue;
+            if (cluster.Contains(neighbor)) continue;
+
+            cluster.Add(neighbor);
+            queue.Enqueue(neighbor);
+        }
     }
 
-    if (clusterConsumed) return;
-if (cluster.Count < 3) return;
+    if (cluster.Count < 3) return;
 
+    // leader = smallest instanceID 
     Candy leader = cluster[0];
     foreach (Candy c in cluster)
-    {
         if (c.GetInstanceID() < leader.GetInstanceID())
             leader = c;
-    }
 
     if (leader != this) return;
 
     clusterConsumed = true;
-OnTripleMaxLevelDetected?.Invoke(cluster, cluster.Count);
+    OnTripleMaxLevelDetected?.Invoke(cluster, cluster.Count);
 }
-
 }
