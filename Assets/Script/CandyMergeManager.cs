@@ -21,13 +21,15 @@ public class CandyMergeManager : MonoBehaviour
     [SerializeField] private Image comboFillImage;
 
     private float comboTimeLeft = 0f;   
-private int comboCount = 0;
-private bool comboActive = false;
-private Coroutine comboCoroutine;
+    private int comboCount = 0;
+    private bool comboActive = false;
+    private Coroutine comboCoroutine;
 
-private Coroutine addScoreCoroutine;
+    private Coroutine addScoreCoroutine;
 
-private Coroutine multiplierCoroutine;
+    private Coroutine multiplierCoroutine;
+
+        public static GameObject[] Prefabs;
 
 [SerializeField] private float comboWindow = 5f;
 [SerializeField] private float comboStep = 0.1f;   // mỗi merge +0.1x
@@ -43,6 +45,8 @@ AudioManager audioManager;
  
  private void Awake(){
      audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+     if (Prefabs == null || Prefabs.Length == 0)
+            Prefabs = Resources.LoadAll<GameObject>("Prefab");
 
  }
     private void Update()

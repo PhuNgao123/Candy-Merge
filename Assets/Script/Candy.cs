@@ -23,16 +23,16 @@ public class Candy : MonoBehaviour
     private bool canPlayDropSFX = true;
 
     void Awake(){
-        GameObject[] candyPrefabs;
-        candyPrefabs= Resources.LoadAll<GameObject>("Prefab");
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = AudioManager.Instance;
 
-        if (candyPrefabs == null || candyPrefabs.Length == 0){
-            Debug.LogWarning("Can not load Candy prefabs!");
-            maxLevel=1;
-        }else{
-            maxLevel = candyPrefabs.Length;
-        }
+        if (CandyMergeManager.Prefabs == null)
+    {
+        Debug.LogError("Prefabs not loaded!");
+        maxLevel = 1;
+        return;
+    }
+
+    maxLevel = CandyMergeManager.Prefabs.Length;
         
     }
    
@@ -66,13 +66,7 @@ public class Candy : MonoBehaviour
 
         
     }
-    private void OnTriggerStay2D(Collider2D other)
-{
-    if (!other.TryGetComponent(out Candy otherCandy)) return;
-    if (!IsSameCandy(otherCandy)) return;
-
-    CheckTripleMaxLevel();
-}
+    
     private void OnTriggerExit2D(Collider2D other)
     {
     if (other.TryGetComponent(out Candy otherCandy))
@@ -94,8 +88,14 @@ public class Candy : MonoBehaviour
         if (!TryGetLevel(out int level)) return;
 
         int newLevel = level + 1;
-        string path = $"Prefab/{prefabPrefix}{newLevel}";
-        GameObject prefab = Resources.Load<GameObject>(path);
+        
+        if (CandyMergeManager.Prefabs == null || newLevel - 1 >= CandyMergeManager.Prefabs.Length)
+        {
+            Debug.LogWarning($"Cannot merge to level {newLevel}: Prefab not found or out of bounds");
+            return;
+        }
+        
+        GameObject prefab = CandyMergeManager.Prefabs[newLevel - 1];
         if (prefab == null) return;
 
         Vector3 pos = (transform.position + other.transform.position) * 0.5f;
@@ -103,8 +103,8 @@ public class Candy : MonoBehaviour
 
         OnCandyMerged?.Invoke(newLevel, pos);
 
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+        Destroy(other.gameObject, 0.05f);
+        Destroy(gameObject, 0.05f);
     }
 
     public bool TryGetLevel(out int level)

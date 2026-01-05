@@ -32,6 +32,19 @@ public class AudioManager : MonoBehaviour
     public AudioClip Combo5;
     public AudioClip Combo6;
 
+    public static AudioManager Instance;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     public void Start(){
         musicSource.clip= background;
         musicSource.Play();

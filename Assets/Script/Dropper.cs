@@ -39,21 +39,17 @@ public class Dropper : MonoBehaviour
             Vector3 pos = transform.position;
             pos.x -= moveSpeed * Time.deltaTime;
             transform.position= pos;
-            Debug.Log("Pressing A");
         }
         if(Input.GetKey(KeyCode.D)){
             Vector3 pos = transform.position;
             pos.x += moveSpeed * Time.deltaTime;
             transform.position= pos;
-            Debug.Log("Pressing D");
         }
         if(Input.GetKey(KeyCode.Q)){  
             transform.Rotate(0f,0f, rotateSpeed * Time.deltaTime);
-            Debug.Log("Pressing Q");
         }
         if(Input.GetKey(KeyCode.E)){
             transform.Rotate(0f,0f, -rotateSpeed * Time.deltaTime);
-            Debug.Log("Pressing E");
         }
         }
 
