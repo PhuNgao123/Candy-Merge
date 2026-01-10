@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 633b4f40b1869a3408482694a802c9ad
+guid: 4860df84f6382064c9511595027f3b7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8483731395159641348
-    second: bg2_0
+      213: -2386200406635244379
+    second: gummybear_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
-    wrapW: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bg2_0
+      name: gummybear_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 28
+        y: 10
+        width: 82
+        height: 116
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cf23eadae3bb34a80800000000000000
-      internalID: -8483731395159641348
+      spriteID: 5a41d9f6f5382eed0800000000000000
+      internalID: -2386200406635244379
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bg2_0: -8483731395159641348
+      gummybear_0: -2386200406635244379
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

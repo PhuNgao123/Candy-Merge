@@ -8,6 +8,8 @@ public class Candy : MonoBehaviour
     // int = level mới, Vector3 = vị trí merge
     public static event Action<List<Candy>,int> OnTripleMaxLevelDetected;
 
+    public static GameObject[] GameOverLine;
+
     AudioManager audioManager;
 
     [Header("Candy info")]
@@ -94,7 +96,9 @@ public class Candy : MonoBehaviour
             Debug.LogWarning($"Cannot merge to level {newLevel}: Prefab not found or out of bounds");
             return;
         }
-        
+        Destroy(other.gameObject);
+        Destroy(gameObject);
+
         GameObject prefab = CandyMergeManager.Prefabs[newLevel - 1];
         if (prefab == null) return;
 
@@ -103,8 +107,7 @@ public class Candy : MonoBehaviour
 
         OnCandyMerged?.Invoke(newLevel, pos);
 
-        Destroy(other.gameObject, 0.05f);
-        Destroy(gameObject, 0.05f);
+        
     }
 
     public bool TryGetLevel(out int level)

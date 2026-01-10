@@ -6,10 +6,10 @@ Physics2DSettings:
   serializedVersion: 11
   m_Gravity: {x: 0, y: -9.81}
   m_DefaultMaterial: {fileID: 0}
-  m_VelocityIterations: 20
-  m_PositionIterations: 20
+  m_VelocityIterations: 10
+  m_PositionIterations: 5
   m_BounceThreshold: 1
-  m_MaxLinearCorrection: 0.2
+  m_MaxLinearCorrection: 0.5
   m_MaxAngularCorrection: 8
   m_MaxTranslationSpeed: 100
   m_MaxRotationSpeed: 360
@@ -18,7 +18,7 @@ Physics2DSettings:
   m_TimeToSleep: 0.5
   m_LinearSleepTolerance: 0.01
   m_AngularSleepTolerance: 2
-  m_DefaultContactOffset: 0.05
+  m_DefaultContactOffset: 0.01
   m_ContactThreshold: 0
   m_JobOptions:
     serializedVersion: 2
@@ -48,7 +48,7 @@ Physics2DSettings:
   m_UseSubStepping: 0
   m_UseSubStepContacts: 0
   m_QueriesHitTriggers: 1
-  m_QueriesStartInColliders: 1
+  m_QueriesStartInColliders: 0
   m_CallbacksOnDisable: 1
   m_ReuseCollisionCallbacks: 0
   m_AutoSyncTransforms: 1

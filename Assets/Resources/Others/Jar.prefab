@@ -212,6 +212,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2213729912010662817}
   - component: {fileID: 3457072436794885853}
+  - component: {fileID: 553766971810206313}
+  - component: {fileID: 5113616234451774479}
   m_Layer: 0
   m_Name: Jar
   m_TagString: Jar
@@ -281,13 +283,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 4.0262117, y: 3.173067}
-      - {x: 3.6093652, y: 3.7458162}
-      - {x: 3.722247, y: 4.6204596}
+    - - {x: 4.115278, y: 3.1416762}
+      - {x: 3.7284737, y: 3.7558062}
+      - {x: 3.7079122, y: 4.601798}
       - {x: 3.549258, y: 4.7876906}
-      - {x: 3.528519, y: 4.825342}
+      - {x: 3.5365357, y: 4.7091002}
       - {x: 3.404133, y: 3.7907305}
-      - {x: 3.7819352, y: 3.0172367}
+      - {x: 3.796921, y: 3.1521053}
       - {x: 3.7712412, y: -5.328811}
       - {x: 3.5917206, y: -5.504461}
       - {x: 2.7669282, y: -5.681964}
@@ -296,19 +298,63 @@ PolygonCollider2D:
       - {x: -2.800025, y: -5.8299747}
       - {x: -4.119802, y: -5.659139}
       - {x: -4.336702, y: -5.385336}
-      - {x: -4.3890324, y: 2.8026853}
-      - {x: -3.9542155, y: 3.7262464}
-      - {x: -4.1399155, y: 4.646548}
-      - {x: -4.2913613, y: 4.4278135}
-      - {x: -4.191974, y: 3.6330516}
-      - {x: -4.5978146, y: 3.0541499}
-      - {x: -4.650606, y: -5.6572275}
-      - {x: -3.9986663, y: -5.887285}
-      - {x: -3.012692, y: -6.0247183}
-      - {x: -2.1360748, y: -6.08786}
-      - {x: -0.99994636, y: -6.133162}
-      - {x: 0.73181206, y: -6.107174}
-      - {x: 2.723846, y: -5.9321938}
-      - {x: 3.7309046, y: -5.7045755}
-      - {x: 4.07022, y: -5.487074}
+      - {x: -4.377118, y: 2.9416833}
+      - {x: -3.997901, y: 3.6944752}
+      - {x: -4.0982685, y: 4.598258}
+      - {x: -4.262711, y: 4.4912734}
+      - {x: -4.309777, y: 3.6559227}
+      - {x: -4.7115293, y: 2.9167156}
+      - {x: -4.8094344, y: -5.7635508}
+      - {x: -4.0836725, y: -6.0062933}
+      - {x: -3.1742039, y: -6.152228}
+      - {x: -2.1700773, y: -6.2323704}
+      - {x: -0.92344075, y: -6.269172}
+      - {x: 0.7573139, y: -6.243184}
+      - {x: 2.766349, y: -6.051203}
+      - {x: 3.7989097, y: -5.815084}
+      - {x: 4.205569, y: -5.523927}
   m_UseDelaunayMesh: 1
+--- !u!50 &553766971810206313
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404339738088098275}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 1
+  m_Mass: 5.273501
+  m_LinearDamping: 8
+  m_AngularDamping: 6
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
+--- !u!114 &5113616234451774479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404339738088098275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2bf0c9fd94d5964c86f2b090338c3c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JarFunction
+  shakeDistance: 0.05
+  moveDuration: 0.05
+  pauseBetween: 0.1
+  shakesPerUse: 5
+  shakeCount: 0

@@ -9,10 +9,12 @@ public class Dropper : MonoBehaviour
     private GameObject currentCandy = null;
     private float nextSpawnTime = 0f;
 
+
     AudioManager audioManager;
 
     public void Awake(){
-         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         candyPrefabs= Resources.LoadAll<GameObject>("Prefab");
 
         if (candyPrefabs == null || candyPrefabs.Length == 0){
@@ -23,6 +25,7 @@ public class Dropper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CandyMergeManager.gameOver) return;
         DropperMove();
         DropCandy();
         
@@ -35,26 +38,30 @@ public class Dropper : MonoBehaviour
     }
 
     public void DropperMove(){
-        if(Input.GetKey(KeyCode.A)){
+        if(Input.GetKey(KeyCode.A) && CandyMergeManager.gameOver== false){
             Vector3 pos = transform.position;
             pos.x -= moveSpeed * Time.deltaTime;
             transform.position= pos;
         }
-        if(Input.GetKey(KeyCode.D)){
+        if(Input.GetKey(KeyCode.D) && CandyMergeManager.gameOver == false)
+        {
             Vector3 pos = transform.position;
             pos.x += moveSpeed * Time.deltaTime;
             transform.position= pos;
         }
-        if(Input.GetKey(KeyCode.Q)){  
+        if(Input.GetKey(KeyCode.Q) && CandyMergeManager.gameOver == false)
+        {  
             transform.Rotate(0f,0f, rotateSpeed * Time.deltaTime);
         }
-        if(Input.GetKey(KeyCode.E)){
+        if(Input.GetKey(KeyCode.E) && CandyMergeManager.gameOver == false)
+        {
             transform.Rotate(0f,0f, -rotateSpeed * Time.deltaTime);
         }
         }
 
     public void DropCandy(){
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.S)){
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.S) && CandyMergeManager.gameOver == false)
+        {
             if (currentCandy == null) return;  
             
             //Separate candy from Dropper
@@ -86,7 +93,9 @@ public class Dropper : MonoBehaviour
         }
 
         //Spawn randomCandy
-        GameObject prefab = RandomCandy();
+        if(CandyMergeManager.gameOver == true) return;
+        else{
+            GameObject prefab = RandomCandy();
         if (prefab == null)
         {
             Debug.LogWarning("RandomCandy returned null!");
@@ -105,7 +114,8 @@ public class Dropper : MonoBehaviour
         //Disable physic
         Rigidbody2D rb = newCandy.GetComponent<Rigidbody2D>();
         if(rb != null){
-            rb.bodyType = RigidbodyType2D.Kinematic;
+            rb.bodyType = RigidbodyType2D.Kinematic;}
+
         }
     }
 

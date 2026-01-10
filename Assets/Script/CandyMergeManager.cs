@@ -4,6 +4,7 @@ using TMPro;
 using System;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CandyMergeManager : MonoBehaviour
 {
@@ -14,11 +15,14 @@ public class CandyMergeManager : MonoBehaviour
 
     public TMP_Text multiplierText;
 
+    public Image multiplierImg;
+
     private float comboMultiplier = 1f;
     
     [SerializeField] private float tripleMaxBonus = 1f;
 
     [SerializeField] private Image comboFillImage;
+    [SerializeField] private JarFunction jarFunction;
 
     private float comboTimeLeft = 0f;   
     private int comboCount = 0;
@@ -29,9 +33,16 @@ public class CandyMergeManager : MonoBehaviour
 
     private Coroutine multiplierCoroutine;
 
-        public static GameObject[] Prefabs;
+    public static GameObject[] Prefabs;
 
-[SerializeField] private float comboWindow = 5f;
+    public static bool gameOver = false;
+
+    private int lastRewardedCombo = 1;
+
+    [SerializeField] private int maxShakeCount = 5;
+
+
+    [SerializeField] private float comboWindow = 5f;
 [SerializeField] private float comboStep = 0.1f;   // mỗi merge +0.1x
 
 [Header("Combo SFX Settings")]
@@ -73,7 +84,9 @@ AudioManager audioManager;
     
     private void HandleCandyMerge(int level, Vector3 position)
 {
-    RegisterCombo();
+        if (CandyMergeManager.gameOver) return;
+
+        RegisterCombo();
 
     int baseScore = level * 10;
     int finalScore = CalculateScore(baseScore);
@@ -88,7 +101,8 @@ AudioManager audioManager;
     
   private void HandleTripleMaxLevel(List<Candy> candies, int mergeCount)
 {
-    foreach (Candy candy in candies)
+        if (CandyMergeManager.gameOver) return;
+        foreach (Candy candy in candies)
         if (candy != null) Destroy(candy.gameObject);
 
     RegisterCombo();
@@ -128,6 +142,7 @@ private int CalculateScore(int baseScore, float extraMultiplier = 1f)
     }
         comboCount++;
         comboMultiplier += comboStep;
+        CheckAndRewardShake();
 
         // Kiểm tra và phát combo SFX
         CheckAndPlayComboSFX();
@@ -136,9 +151,9 @@ private int CalculateScore(int baseScore, float extraMultiplier = 1f)
         if (comboCoroutine != null)
         StopCoroutine(comboCoroutine);
 
-    comboCoroutine = StartCoroutine(DelayAction(comboWindow, ResetCombo));
+        comboCoroutine = StartCoroutine(DelayAction(comboWindow, ResetCombo));
 
-    ShowMultiplier();
+        ShowMultiplier();
     ShowComboBar();
 }   
 
@@ -149,9 +164,10 @@ private void ResetCombo()
     comboCount = 0;
     comboMultiplier = 1f;
     comboCoroutine = null;
-    lastComboSFXMultiplier = 1f; // Reset khi combo kết thúc
+    lastComboSFXMultiplier = 1f;
+    lastRewardedCombo = 1;
 
-    multiplierText.gameObject.SetActive(false);
+        multiplierText.gameObject.SetActive(false);
     HideComboBar();
     
 }
@@ -204,7 +220,11 @@ private void ShowMultiplier(){
     );
 }
 
-private void ShowComboBar()
+private void ShowMultiplierSpecial()
+    {
+        // Show special multiplier img effect
+    }
+    private void ShowComboBar()
 {
     comboFillImage.transform.parent.gameObject.SetActive(true);
     comboFillImage.fillAmount = 1f;
@@ -214,4 +234,36 @@ private void HideComboBar()
 {
     comboFillImage.transform.parent.gameObject.SetActive(false);
 }
+
+    private void CheckAndRewardShake()
+    {
+        int currentComboInt = Mathf.FloorToInt(comboMultiplier);
+
+        if (currentComboInt > lastRewardedCombo && jarFunction != null)
+        {
+            int reward = currentComboInt - lastRewardedCombo;
+            lastRewardedCombo = currentComboInt;
+
+            int before = jarFunction.shakeCount;
+            jarFunction.shakeCount = Mathf.Min(
+                jarFunction.shakeCount + reward,
+                maxShakeCount
+            );
+
+            int gained = jarFunction.shakeCount - before;
+            if (gained > 0)
+                Debug.Log($"+{gained} Shake (Combo x{currentComboInt})");
+        }
+    }
+
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
+    public void GameOverScreen()
+    {
+        // Show Game Over Screen
+    }
 }

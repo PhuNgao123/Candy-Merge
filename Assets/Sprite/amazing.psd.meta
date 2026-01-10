@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 170e2f508b6c892499a5fe516f1e7a8c
+guid: 76b0201b2e7851a4d8451a393b2fd6e2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6309632311143148309
-    second: amzing_0
+      213: 694525405417986897
+    second: amazing_0
   - first:
-      213: 4319089025861047493
-    second: amzing_1
+      213: 6248118738808837463
+    second: amazing_1
   - first:
-      213: 8743194832838902358
-    second: amzing_2
+      213: -1284096765354802775
+    second: amazing_2
   - first:
-      213: -7188155126040115957
-    second: amzing_3
+      213: 4561151619458410989
+    second: amazing_3
   - first:
-      213: 4428055952387226235
-    second: amzing_4
+      213: -1467506236512021338
+    second: amazing_4
   - first:
-      213: -2334360804519981828
-    second: amzing_5
+      213: -8908221988263604505
+    second: amazing_5
   - first:
-      213: 8521444439610510106
-    second: amzing_6
+      213: -499577304557869369
+    second: amazing_6
   - first:
-      213: 8112191525719390275
-    second: amzing_7
+      213: 5140155493300362149
+    second: amazing_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -134,13 +134,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: amzing_0
+      name: amazing_0
       rect:
         serializedVersion: 2
-        x: 236
-        y: 884
-        width: 59
-        height: 59
+        x: 23
+        y: 147
+        width: 2623
+        height: 862
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +149,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be45cf6c7deaf68a0800000000000000
-      internalID: -6309632311143148309
+      spriteID: 15b5c6d2d2373a900800000000000000
+      internalID: 694525405417986897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_1
+      name: amazing_1
       rect:
         serializedVersion: 2
-        x: 329
-        y: 920
-        width: 58
-        height: 59
+        x: 53
+        y: 907
+        width: 106
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +171,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5c45cb3e59c70fb30800000000000000
-      internalID: 4319089025861047493
+      spriteID: 755992593e6c5b650800000000000000
+      internalID: 6248118738808837463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_2
+      name: amazing_2
       rect:
         serializedVersion: 2
-        x: 1411
-        y: 870
-        width: 68
-        height: 68
+        x: 882
+        y: 979
+        width: 74
+        height: 74
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,20 +193,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 652c4658061165970800000000000000
-      internalID: 8743194832838902358
+      spriteID: 9a18ccb9bc8fd2ee0800000000000000
+      internalID: -1284096765354802775
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_3
+      name: amazing_3
       rect:
         serializedVersion: 2
-        x: 1567
-        y: 860
-        width: 63
-        height: 63
+        x: 1992
+        y: 871
+        width: 168
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b05c9f15ffa8e3c90800000000000000
-      internalID: -7188155126040115957
+      spriteID: de9248c5b377c4f30800000000000000
+      internalID: 4561151619458410989
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_4
+      name: amazing_4
       rect:
         serializedVersion: 2
-        x: 6
-        y: 137
-        width: 2040
-        height: 730
+        x: 326
+        y: 82
+        width: 163
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,20 +237,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b7a38978d6d937d30800000000000000
-      internalID: 4428055952387226235
+      spriteID: 6a4d7036ade52abe0800000000000000
+      internalID: -1467506236512021338
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_5
+      name: amazing_5
       rect:
         serializedVersion: 2
-        x: 552
-        y: 815
-        width: 61
-        height: 61
+        x: 916
+        y: 26
+        width: 272
+        height: 173
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -259,20 +259,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cfccdfc573faa9fd0800000000000000
-      internalID: -2334360804519981828
+      spriteID: 7ee4939ac43af5480800000000000000
+      internalID: -8908221988263604505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_6
+      name: amazing_6
       rect:
         serializedVersion: 2
-        x: 273
+        x: 1600
         y: 106
-        width: 63
-        height: 63
+        width: 250
+        height: 133
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,20 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a1b463cb190424670800000000000000
-      internalID: 8521444439610510106
+      spriteID: 7c62bff96152119f0800000000000000
+      internalID: -499577304557869369
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: amzing_7
+      name: amazing_7
       rect:
         serializedVersion: 2
-        x: 440
-        y: 84
-        width: 64
-        height: 63
+        x: 2021
+        y: 78
+        width: 231
+        height: 138
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,8 +303,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3483070663b449070800000000000000
-      internalID: 8112191525719390275
+      spriteID: 5abd07cff20855740800000000000000
+      internalID: 5140155493300362149
       vertices: []
       indices: 
       edges: []
@@ -323,14 +323,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      amzing_0: -6309632311143148309
-      amzing_1: 4319089025861047493
-      amzing_2: 8743194832838902358
-      amzing_3: -7188155126040115957
-      amzing_4: 4428055952387226235
-      amzing_5: -2334360804519981828
-      amzing_6: 8521444439610510106
-      amzing_7: 8112191525719390275
+      amazing_0: 694525405417986897
+      amazing_1: 6248118738808837463
+      amazing_2: -1284096765354802775
+      amazing_3: 4561151619458410989
+      amazing_4: -1467506236512021338
+      amazing_5: -8908221988263604505
+      amazing_6: -499577304557869369
+      amazing_7: 5140155493300362149
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
