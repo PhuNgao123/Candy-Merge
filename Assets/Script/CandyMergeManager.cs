@@ -9,25 +9,6 @@ using UnityEngine.SceneManagement;
 public class CandyMergeManager : MonoBehaviour
 {
     private int score =0;
-    public TMP_Text scoreText;
-
-    public TMP_Text addScoreText;
-
-    public TMP_Text multiplierText;
-
-    public Image multiplierImg;
-
-    private float comboMultiplier = 1f;
-    
-    [SerializeField] private float tripleMaxBonus = 1f;
-
-    [SerializeField] private Image comboFillImage;
-    [SerializeField] private JarFunction jarFunction;
-
-    private float comboTimeLeft = 0f;   
-    private int comboCount = 0;
-    private bool comboActive = false;
-    private Coroutine comboCoroutine;
 
     private Coroutine addScoreCoroutine;
 
@@ -37,19 +18,40 @@ public class CandyMergeManager : MonoBehaviour
 
     public static bool gameOver = false;
 
+    [Header("Game Object Reference")]
+    public TMP_Text scoreText;
+
+    public TMP_Text addScoreText;
+
+    public TMP_Text multiplierText;
+
+    public Image multiplierImg;
+
+    public TMP_Text shakeCountText;
+
+    [SerializeField] private Image comboFillImage;
+    [SerializeField] private JarFunction jarFunction;
+
+    [Header("JarShakeLogic")]
     private int lastRewardedCombo = 1;
 
     [SerializeField] private int maxShakeCount = 5;
 
-
+    [Header("Combo-Multiplier Settings")]
+    private float comboTimeLeft = 0f;   
+    private int comboCount = 0;
+    private bool comboActive = false;
+    private Coroutine comboCoroutine;
+    private float comboMultiplier = 1f;
     [SerializeField] private float comboWindow = 5f;
-[SerializeField] private float comboStep = 0.1f;   // mỗi merge +0.1x
+    [SerializeField] private float comboStep = 0.1f;   
+    [SerializeField] private float tripleMaxBonus = 1f;
 
-[Header("Combo SFX Settings")]
-[SerializeField] private float multiplierThreshold = 1f; // Mốc để trigger SFX (ví dụ: mỗi 1x)
-[SerializeField] private float firstComboAt = 2f; // Multiplier đầu tiên để phát combo (2x)
+    [Header("Combo SFX Settings")]
+    [SerializeField] private float multiplierThreshold = 1f; 
+    [SerializeField] private float firstComboAt = 2f; 
 
-private float lastComboSFXMultiplier = 1f; // Theo dõi multiplier cuối cùng đã phát SFX
+private float lastComboSFXMultiplier = 1f; 
     
 
 AudioManager audioManager;
